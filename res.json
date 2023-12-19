@@ -1,0 +1,2505 @@
+[
+  {
+    "name": "ngenwal-apigateway",
+    "images": "loyaltolpi/ngenwal-apigateway:0ecf119",
+    "registry": "loyaltolpi/ngenwal-apigateway",
+    "version": "0ecf119",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 8008
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-apigateway",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "front"
+    },
+    "response_template": "template-krakend-v1"
+  },
+  {
+    "name": "ngenwal-be-access-manager",
+    "images": "loyaltolpi/ngenwal-be-access-manager:32fb6c0",
+    "registry": "loyaltolpi/ngenwal-be-access-manager",
+    "version": "32fb6c0",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9141
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-access-manager",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "front"
+    },
+    "response_template": "template-go-v1"
+  },
+  {
+    "name": "ngenwal-be-access-module",
+    "images": "loyaltolpi/ngenwal-be-access-module:bfb0f78",
+    "registry": "loyaltolpi/ngenwal-be-access-module",
+    "version": "bfb0f78",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-access-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-go-v1"
+  },
+  {
+    "name": "ngenwal-be-adjudicator-manager",
+    "images": "loyaltolpi/ngenwal-be-adjudicator-manager:d4ce394",
+    "registry": "loyaltolpi/ngenwal-be-adjudicator-manager",
+    "version": "d4ce394",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9021
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-adjudicator-manager",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "front"
+    },
+    "response_template": "template-go-v1"
+  },
+  {
+    "name": "ngenwal-be-adjudicator-module",
+    "images": "loyaltolpi/ngenwal-be-adjudicator-module:7e7a81e",
+    "registry": "loyaltolpi/ngenwal-be-adjudicator-module",
+    "version": "7e7a81e",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9020
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-adjudicator-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-go-v1"
+  },
+  {
+    "name": "ngenwal-be-asset-module",
+    "images": "loyaltolpi/ngenwal-be-asset-module:b747206",
+    "registry": "loyaltolpi/ngenwal-be-asset-module",
+    "version": "b747206",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": [
+      "dotnet",
+      "ngenwal-be-asset-module.dll",
+      "--environment=develop"
+    ],
+    "container_env": [
+      {
+        "name": "DOTNET_ENVIRONMENT",
+        "value": "develop",
+        "value_from": null
+      }
+    ],
+    "labels": {
+      "app": "ngenwal-be-asset-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-unknow"
+  },
+  {
+    "name": "ngenwal-be-bisnap-manager",
+    "images": "loyaltolpi/ngenwal-bisnap-manager:aa7f6ea",
+    "registry": "loyaltolpi/ngenwal-bisnap-manager",
+    "version": "aa7f6ea",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 5124
+      }
+    ],
+    "container_args": null,
+    "container_env": [
+      {
+        "name": "ASPNETCORE_ENVIRONMENT",
+        "value": "develop",
+        "value_from": null
+      }
+    ],
+    "labels": {
+      "app": "ngenwal-be-bisnap-manager",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "front"
+    },
+    "response_template": "template-dotnet-v2"
+  },
+  {
+    "name": "ngenwal-be-indodaxinterface-manager",
+    "images": "loyaltolpi/ngenwal-be-indodaxinterface-manager:447fbf4",
+    "registry": "loyaltolpi/ngenwal-be-indodaxinterface-manager",
+    "version": "447fbf4",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 7000
+      }
+    ],
+    "container_args": null,
+    "container_env": [
+      {
+        "name": "ASPNETCORE_ENVIRONMENT",
+        "value": "develop",
+        "value_from": null
+      }
+    ],
+    "labels": {
+      "app": "ngenwal-be-indodaxinterface-manager",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "front"
+    },
+    "response_template": "template-dotnet-v2"
+  },
+  {
+    "name": "ngenwal-be-inisiator-module",
+    "images": "loyaltolpi/ngenwal-be-inisiator-module:a29e70d",
+    "registry": "loyaltolpi/ngenwal-be-inisiator-module",
+    "version": "a29e70d",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-inisiator-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-go-v1"
+  },
+  {
+    "name": "ngenwal-be-messaging-manager",
+    "images": "loyaltolpi/ngenwal-be-messaging-manager:b3f07dc",
+    "registry": "loyaltolpi/ngenwal-be-messaging-manager",
+    "version": "b3f07dc",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": null,
+    "container_env": [
+      {
+        "name": "ASPNETCORE_ENVIRONMENT",
+        "value": "develop",
+        "value_from": null
+      }
+    ],
+    "labels": {
+      "app": "ngenwal-be-messaging-manager",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "front"
+    },
+    "response_template": "template-dotnet-v2"
+  },
+  {
+    "name": "ngenwal-be-messaging-module",
+    "images": "loyaltolpi/ngenwal-be-messaging-module:1095a9a",
+    "registry": "loyaltolpi/ngenwal-be-messaging-module",
+    "version": "1095a9a",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": null,
+    "container_env": [
+      {
+        "name": "DOTNET_ENVIRONMENT",
+        "value": "develop",
+        "value_from": null
+      }
+    ],
+    "labels": {
+      "app": "ngenwal-be-messaging-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ewallet",
+      "role": "back"
+    },
+    "response_template": "template-dotnet-v2"
+  },
+  {
+    "name": "ngenwal-be-messagingschedulerinterface-manager",
+    "images": "loyaltolpi/ngenwal-be-messagingschedulerinterface-manager:cb383ad",
+    "registry": "loyaltolpi/ngenwal-be-messagingschedulerinterface-manager",
+    "version": "cb383ad",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 7001
+      }
+    ],
+    "container_args": null,
+    "container_env": [
+      {
+        "name": "ASPNETCORE_ENVIRONMENT",
+        "value": "develop",
+        "value_from": null
+      }
+    ],
+    "labels": {
+      "app": "ngenwal-be-messagingschedulerinterface-manager",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "front"
+    },
+    "response_template": "template-dotnet-v2"
+  },
+  {
+    "name": "ngenwal-be-paprika-manager",
+    "images": "loyaltolpi/ngenwal-be-paprika-manager:795507b",
+    "registry": "loyaltolpi/ngenwal-be-paprika-manager",
+    "version": "795507b",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 4030
+      }
+    ],
+    "container_args": [
+      "dotnet",
+      "ngenwal-be-paprika-manager.dll",
+      "--environment=develop"
+    ],
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-paprika-manager",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "front"
+    },
+    "response_template": "template-dotnet-v1"
+  },
+  {
+    "name": "ngenwal-be-ppob-manager",
+    "images": "loyaltolpi/ngenwal-be-ppob-manager:bac2f54",
+    "registry": "loyaltolpi/ngenwal-be-ppob-manager",
+    "version": "bac2f54",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": [
+      "dotnet",
+      "ngenwal-be-ppob-manager.dll",
+      "--environment=develop"
+    ],
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-ppob-manager",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "front"
+    },
+    "response_template": "template-dotnet-v1"
+  },
+  {
+    "name": "ngenwal-be-ppob-module",
+    "images": "loyaltolpi/ngenwal-be-ppob-module:8b36b29",
+    "registry": "loyaltolpi/ngenwal-be-ppob-module",
+    "version": "8b36b29",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": [
+      "dotnet",
+      "ngenwal-be-ppob-module.dll",
+      "--environment=develop"
+    ],
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-ppob-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-dotnet-v1"
+  },
+  {
+    "name": "ngenwal-be-qrispayment-manager",
+    "images": "loyaltolpi/ngenwal-be-qrispayment-manager:b6e86d5",
+    "registry": "loyaltolpi/ngenwal-be-qrispayment-manager",
+    "version": "b6e86d5",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": [
+      "dotnet",
+      "ngenwal-be-qrispayment-manager.dll",
+      "--environment=develop"
+    ],
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-qrispayment-manager",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "front"
+    },
+    "response_template": "template-dotnet-v1"
+  },
+  {
+    "name": "ngenwal-be-rajabillertask-manager",
+    "images": "loyaltolpi/ngenwal-be-rajabillertask-manager:7932d3b",
+    "registry": "loyaltolpi/ngenwal-be-rajabillertask-manager",
+    "version": "7932d3b",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": [
+      "dotnet",
+      "ngenwal-be-rajabillertask-manager.dll",
+      "--environment=develop"
+    ],
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-rajabillertask-manager",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "front"
+    },
+    "response_template": "template-dotnet-v1"
+  },
+  {
+    "name": "ngenwal-be-referral-manager",
+    "images": "loyaltolpi/ngenwal-be-referral-manager:311ec01",
+    "registry": "loyaltolpi/ngenwal-be-referral-manager",
+    "version": "311ec01",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 6020
+      }
+    ],
+    "container_args": [
+      "dotnet",
+      "ngenwal-be-referral-manager.dll",
+      "--environment=develop"
+    ],
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-referral-manager",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "front"
+    },
+    "response_template": "template-dotnet-v1"
+  },
+  {
+    "name": "ngenwal-be-referralsent-module",
+    "images": "loyaltolpi/ngenwal-be-referralsent-module:bcbfc63",
+    "registry": "loyaltolpi/ngenwal-be-referralsent-module",
+    "version": "bcbfc63",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": [
+      "dotnet",
+      "ngenwal-be-referralsent-module.dll",
+      "--environment=develop"
+    ],
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-referralsent-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-dotnet-v1"
+  },
+  {
+    "name": "ngenwal-be-rewardtask-module",
+    "images": "loyaltolpi/ngenwal-be-rewardtask-module:3e17cda",
+    "registry": "loyaltolpi/ngenwal-be-rewardtask-module",
+    "version": "3e17cda",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": [
+      "dotnet",
+      "ngenwal-be-rewardtask-module.dll",
+      "--environment=develop"
+    ],
+    "container_env": [
+      {
+        "name": "DOTNET_ENVIRONMENT",
+        "value": "develop",
+        "value_from": null
+      }
+    ],
+    "labels": {
+      "app": "ngenwal-be-rewardtask-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-unknow"
+  },
+  {
+    "name": "ngenwal-be-saasadjudicator-module",
+    "images": "loyaltolpi/ngenwal-be-saasadjudicator-module:0bd09b9",
+    "registry": "loyaltolpi/ngenwal-be-saasadjudicator-module",
+    "version": "0bd09b9",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 7001
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-saasadjudicator-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-go-v1"
+  },
+  {
+    "name": "ngenwal-be-saasasset-module",
+    "images": "loyaltolpi/ngenwal-be-saasasset-module:268780c",
+    "registry": "loyaltolpi/ngenwal-be-saasasset-module",
+    "version": "268780c",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": null,
+    "container_env": [
+      {
+        "name": "DOTNET_ENVIRONMENT",
+        "value": "develop",
+        "value_from": null
+      }
+    ],
+    "labels": {
+      "app": "ngenwal-be-saasasset-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-dotnet-v2"
+  },
+  {
+    "name": "ngenwal-be-saasblockchainservice-manager",
+    "images": "loyaltolpi/ngenwal-be-saasblockchainservice-manager:87a8868",
+    "registry": "loyaltolpi/ngenwal-be-saasblockchainservice-manager",
+    "version": "87a8868",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": [
+      "dotnet",
+      "ngenwal-be-saasblockchainservice-manager.dll",
+      "--environment=develop"
+    ],
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-saasblockchainservice-manager",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "front"
+    },
+    "response_template": "template-dotnet-v1"
+  },
+  {
+    "name": "ngenwal-be-saasblockconfirmation-manager",
+    "images": "loyaltolpi/ngenwal-be-saasblockconfirmation-manager:205a5a8",
+    "registry": "loyaltolpi/ngenwal-be-saasblockconfirmation-manager",
+    "version": "205a5a8",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": [
+      "dotnet",
+      "ngenwal-be-saasblockconfirmation-manager.dll",
+      "--environment=develop"
+    ],
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-saasblockconfirmation-manager",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "front"
+    },
+    "response_template": "template-dotnet-v1"
+  },
+  {
+    "name": "ngenwal-be-saasclaimvoucher-module",
+    "images": "loyaltolpi/ngenwal-be-saasclaimvoucher-module:91b27db",
+    "registry": "loyaltolpi/ngenwal-be-saasclaimvoucher-module",
+    "version": "91b27db",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": null,
+    "container_env": [
+      {
+        "name": "DOTNET_ENVIRONMENT",
+        "value": "develop",
+        "value_from": null
+      }
+    ],
+    "labels": {
+      "app": "ngenwal-be-saasclaimvoucher-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-dotnet-v2"
+  },
+  {
+    "name": "ngenwal-be-saasdiscountlimit-module",
+    "images": "loyaltolpi/ngenwal-be-saasdiscountlimit-module:d21a7c7",
+    "registry": "loyaltolpi/ngenwal-be-saasdiscountlimit-module",
+    "version": "d21a7c7",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": null,
+    "container_env": [
+      {
+        "name": "DOTNET_ENVIRONMENT",
+        "value": "develop",
+        "value_from": null
+      }
+    ],
+    "labels": {
+      "app": "ngenwal-be-saasdiscountlimit-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-dotnet-v2"
+  },
+  {
+    "name": "ngenwal-be-saasdistributevoucher-module",
+    "images": "loyaltolpi/ngenwal-be-saasdistributevoucher-module:3d220b4",
+    "registry": "loyaltolpi/ngenwal-be-saasdistributevoucher-module",
+    "version": "3d220b4",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": null,
+    "container_env": [
+      {
+        "name": "DOTNET_ENVIRONMENT",
+        "value": "develop",
+        "value_from": null
+      }
+    ],
+    "labels": {
+      "app": "ngenwal-be-saasdistributevoucher-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-dotnet-v2"
+  },
+  {
+    "name": "ngenwal-be-saasexchangerate-manager",
+    "images": "loyaltolpi/ngenwal-be-saasexchangerate-manager:ce64e2a",
+    "registry": "loyaltolpi/ngenwal-be-saasexchangerate-manager",
+    "version": "ce64e2a",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9012
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-saasexchangerate-manager",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "front"
+    },
+    "response_template": "template-go-v1"
+  },
+  {
+    "name": "ngenwal-be-saasexchangerate-module",
+    "images": "loyaltolpi/ngenwal-be-saasexchangerate-module:8228bfb",
+    "registry": "loyaltolpi/ngenwal-be-saasexchangerate-module",
+    "version": "8228bfb",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      },
+      {
+        "name": "grpc",
+        "containerPort": 9014
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-saasexchangerate-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-go-v2"
+  },
+  {
+    "name": "ngenwal-be-saasindodaxscheduler-module",
+    "images": "loyaltolpi/ngenwal-be-saasindodaxscheduler-module:eab2b50",
+    "registry": "loyaltolpi/ngenwal-be-saasindodaxscheduler-module",
+    "version": "eab2b50",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": null,
+    "container_env": [
+      {
+        "name": "DOTNET_ENVIRONMENT",
+        "value": "develop",
+        "value_from": null
+      }
+    ],
+    "labels": {
+      "app": "ngenwal-be-saasindodaxscheduler-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-dotnet-v2"
+  },
+  {
+    "name": "ngenwal-be-saasinterfacetransferout-manager",
+    "images": "loyaltolpi/ngenwal-be-saasinterfacetransferout-manager:69c9b91",
+    "registry": "loyaltolpi/ngenwal-be-saasinterfacetransferout-manager",
+    "version": "69c9b91",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": [
+      "dotnet",
+      "ngenwal-be-saasinterfacetransferout-manager.dll",
+      "--environment=develop"
+    ],
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-saasinterfacetransferout-manager",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "front"
+    },
+    "response_template": "template-dotnet-v1"
+  },
+  {
+    "name": "ngenwal-be-saasissuervoucher-module",
+    "images": "loyaltolpi/ngenwal-be-saasissuervoucher-module:c2a8352",
+    "registry": "loyaltolpi/ngenwal-be-saasissuervoucher-module",
+    "version": "c2a8352",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": null,
+    "container_env": [
+      {
+        "name": "DOTNET_ENVIRONMENT",
+        "value": "develop",
+        "value_from": null
+      }
+    ],
+    "labels": {
+      "app": "ngenwal-be-saasissuervoucher-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-dotnet-v2"
+  },
+  {
+    "name": "ngenwal-be-saasmasterconfig-module",
+    "images": "loyaltolpi/ngenwal-be-saasmasterconfig-module:9e54179",
+    "registry": "loyaltolpi/ngenwal-be-saasmasterconfig-module",
+    "version": "9e54179",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": [
+      "dotnet",
+      "ngenwal-be-saasmasterconfig-module.dll",
+      "--environment=develop"
+    ],
+    "container_env": [
+      {
+        "name": "DOTNET_ENVIRONMENT",
+        "value": "develop",
+        "value_from": null
+      }
+    ],
+    "labels": {
+      "app": "ngenwal-be-saasmasterconfig-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-unknow"
+  },
+  {
+    "name": "ngenwal-be-saasmasterevent-module",
+    "images": "loyaltolpi/ngenwal-be-saasmasterevent-module:ea9e71c",
+    "registry": "loyaltolpi/ngenwal-be-saasmasterevent-module",
+    "version": "ea9e71c",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": [
+      "dotnet",
+      "ngenwal-be-saasmasterevent-module.dll",
+      "--environment=develop"
+    ],
+    "container_env": [
+      {
+        "name": "DOTNET_ENVIRONMENT",
+        "value": "develop",
+        "value_from": null
+      }
+    ],
+    "labels": {
+      "app": "ngenwal-be-saasmasterevent-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-unknow"
+  },
+  {
+    "name": "ngenwal-be-saasmastervoucher-module",
+    "images": "loyaltolpi/ngenwal-be-saasmastervoucher-module:645bb83",
+    "registry": "loyaltolpi/ngenwal-be-saasmastervoucher-module",
+    "version": "645bb83",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": null,
+    "container_env": [
+      {
+        "name": "DOTNET_ENVIRONMENT",
+        "value": "develop",
+        "value_from": null
+      }
+    ],
+    "labels": {
+      "app": "ngenwal-be-saasmastervoucher-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-dotnet-v2"
+  },
+  {
+    "name": "ngenwal-be-saasmerchantssinterface-manager",
+    "images": "loyaltolpi/ngenwal-be-saasmerchantssinterface-manager:4ba03f1",
+    "registry": "loyaltolpi/ngenwal-be-saasmerchantssinterface-manager",
+    "version": "4ba03f1",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 4027
+      }
+    ],
+    "container_args": null,
+    "container_env": [
+      {
+        "name": "ASPNETCORE_ENVIRONMENT",
+        "value": "develop",
+        "value_from": null
+      }
+    ],
+    "labels": {
+      "app": "ngenwal-be-saasmerchantssinterface-manager",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "front"
+    },
+    "response_template": "template-dotnet-v2"
+  },
+  {
+    "name": "ngenwal-be-saasmessagingscheduler-module",
+    "images": "loyaltolpi/ngenwal-be-saasmessagingscheduler-module:62d9537",
+    "registry": "loyaltolpi/ngenwal-be-saasmessagingscheduler-module",
+    "version": "62d9537",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 7000
+      }
+    ],
+    "container_args": null,
+    "container_env": [
+      {
+        "name": "DOTNET_ENVIRONMENT",
+        "value": "develop",
+        "value_from": null
+      }
+    ],
+    "labels": {
+      "app": "ngenwal-be-saasmessagingscheduler-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-dotnet-v2"
+  },
+  {
+    "name": "ngenwal-be-saasoyserviceinterface-manager",
+    "images": "loyaltolpi/ngenwal-be-saasoyserviceinterface-manager:3f4ba35",
+    "registry": "loyaltolpi/ngenwal-be-saasoyserviceinterface-manager",
+    "version": "3f4ba35",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 6991
+      }
+    ],
+    "container_args": [
+      "dotnet",
+      "ngenwal-be-saasoyserviceinterface-manager.dll",
+      "--environment=develop"
+    ],
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-saasoyserviceinterface-manager",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "front"
+    },
+    "response_template": "template-dotnet-v1"
+  },
+  {
+    "name": "ngenwal-be-saasoyserviceinterface-module",
+    "images": "loyaltolpi/ngenwal-be-saasoyserviceinterface-module:707d015",
+    "registry": "loyaltolpi/ngenwal-be-saasoyserviceinterface-module",
+    "version": "707d015",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": [
+      "dotnet",
+      "ngenwal-be-saasoyserviceinterface-module.dll",
+      "--environment=develop"
+    ],
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-saasoyserviceinterface-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-dotnet-v1"
+  },
+  {
+    "name": "ngenwal-be-saasppobscheduler-manager",
+    "images": "loyaltolpi/ngenwal-be-saasppobscheduler-manager:60282ba",
+    "registry": "loyaltolpi/ngenwal-be-saasppobscheduler-manager",
+    "version": "60282ba",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": null,
+    "container_env": [
+      {
+        "name": "DOTNET_ENVIRONMENT",
+        "value": "develop",
+        "value_from": null
+      }
+    ],
+    "labels": {
+      "app": "ngenwal-be-saasppobscheduler-manager",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "front"
+    },
+    "response_template": "template-dotnet-v2"
+  },
+  {
+    "name": "ngenwal-be-saasppobscheduler-module",
+    "images": "loyaltolpi/ngenwal-be-saasppobscheduler-module:c98b9ee",
+    "registry": "loyaltolpi/ngenwal-be-saasppobscheduler-module",
+    "version": "c98b9ee",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": null,
+    "container_env": [
+      {
+        "name": "DOTNET_ENVIRONMENT",
+        "value": "develop",
+        "value_from": null
+      }
+    ],
+    "labels": {
+      "app": "ngenwal-be-saasppobscheduler-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-dotnet-v2"
+  },
+  {
+    "name": "ngenwal-be-saasqoinswitchrintis-manager",
+    "images": "loyaltolpi/ngenwal-be-saasqoinswitchrintis-manager:048671c",
+    "registry": "loyaltolpi/ngenwal-be-saasqoinswitchrintis-manager",
+    "version": "048671c",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 6075
+      }
+    ],
+    "container_args": [
+      "dotnet",
+      "ngenwal-be-saasqoinswitchrintis-manager.dll",
+      "--environment=develop"
+    ],
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-saasqoinswitchrintis-manager",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "front"
+    },
+    "response_template": "template-dotnet-v1"
+  },
+  {
+    "name": "ngenwal-be-saasqrisvoucherss-module",
+    "images": "loyaltolpi/ngenwal-be-saasqrisvoucherss-module:ef2ca8c",
+    "registry": "loyaltolpi/ngenwal-be-saasqrisvoucherss-module",
+    "version": "ef2ca8c",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 8002
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-saasqrisvoucherss-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-krakend-v1"
+  },
+  {
+    "name": "ngenwal-be-saasrajabillerinterface-manager",
+    "images": "loyaltolpi/ngenwal-be-saasrajabillerinterface-manager:828e35d",
+    "registry": "loyaltolpi/ngenwal-be-saasrajabillerinterface-manager",
+    "version": "828e35d",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 4025
+      }
+    ],
+    "container_args": null,
+    "container_env": [
+      {
+        "name": "ASPNETCORE_ENVIRONMENT",
+        "value": "develop",
+        "value_from": null
+      }
+    ],
+    "labels": {
+      "app": "ngenwal-be-saasrajabillerinterface-manager",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "front"
+    },
+    "response_template": "template-dotnet-v2"
+  },
+  {
+    "name": "ngenwal-be-saasredeemvoucher-module",
+    "images": "loyaltolpi/ngenwal-be-saasredeemvoucher-module:f9006ba",
+    "registry": "loyaltolpi/ngenwal-be-saasredeemvoucher-module",
+    "version": "f9006ba",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": null,
+    "container_env": [
+      {
+        "name": "DOTNET_ENVIRONMENT",
+        "value": "develop",
+        "value_from": null
+      }
+    ],
+    "labels": {
+      "app": "ngenwal-be-saasredeemvoucher-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-dotnet-v2"
+  },
+  {
+    "name": "ngenwal-be-saasreverseproxybsc-module",
+    "images": "loyaltolpi/ngenwal-be-saasreverseproxybsc-module:690ecc4",
+    "registry": "loyaltolpi/ngenwal-be-saasreverseproxybsc-module",
+    "version": "690ecc4",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": null,
+    "container_env": [
+      {
+        "name": "DOTNET_ENVIRONMENT",
+        "value": "develop",
+        "value_from": null
+      }
+    ],
+    "labels": {
+      "app": "ngenwal-be-saasreverseproxybsc-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-dotnet-v2"
+  },
+  {
+    "name": "ngenwal-be-saasreverseproxybtc-module",
+    "images": "loyaltolpi/ngenwal-be-saasreverseproxybtc-module:04fc910",
+    "registry": "loyaltolpi/ngenwal-be-saasreverseproxybtc-module",
+    "version": "04fc910",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": null,
+    "container_env": [
+      {
+        "name": "DOTNET_ENVIRONMENT",
+        "value": "develop",
+        "value_from": null
+      }
+    ],
+    "labels": {
+      "app": "ngenwal-be-saasreverseproxybtc-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-dotnet-v2"
+  },
+  {
+    "name": "ngenwal-be-saasreverseproxyeth-module",
+    "images": "loyaltolpi/ngenwal-be-saasreverseproxyeth-module:e8dee7f",
+    "registry": "loyaltolpi/ngenwal-be-saasreverseproxyeth-module",
+    "version": "e8dee7f",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": null,
+    "container_env": [
+      {
+        "name": "DOTNET_ENVIRONMENT",
+        "value": "develop",
+        "value_from": null
+      }
+    ],
+    "labels": {
+      "app": "ngenwal-be-saasreverseproxyeth-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-dotnet-v2"
+  },
+  {
+    "name": "ngenwal-be-saasreverseproxypoly-module",
+    "images": "loyaltolpi/ngenwal-be-saasreverseproxypoly-module:81c5bb3",
+    "registry": "loyaltolpi/ngenwal-be-saasreverseproxypoly-module",
+    "version": "81c5bb3",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": null,
+    "container_env": [
+      {
+        "name": "DOTNET_ENVIRONMENT",
+        "value": "develop",
+        "value_from": null
+      }
+    ],
+    "labels": {
+      "app": "ngenwal-be-saasreverseproxypoly-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-dotnet-v2"
+  },
+  {
+    "name": "ngenwal-be-saasreverseproxysol-module",
+    "images": "loyaltolpi/ngenwal-be-saasreverseproxysol-module:a4e5671",
+    "registry": "loyaltolpi/ngenwal-be-saasreverseproxysol-module",
+    "version": "a4e5671",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": null,
+    "container_env": [
+      {
+        "name": "DOTNET_ENVIRONMENT",
+        "value": "develop",
+        "value_from": null
+      }
+    ],
+    "labels": {
+      "app": "ngenwal-be-saasreverseproxysol-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-dotnet-v2"
+  },
+  {
+    "name": "ngenwal-be-saasrintisinterfaceservice-manager",
+    "images": "loyaltolpi/ngenwal-be-saasrintisinterfaceservice-manager:1eca2f6",
+    "registry": "loyaltolpi/ngenwal-be-saasrintisinterfaceservice-manager",
+    "version": "1eca2f6",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": [
+      "dotnet",
+      "ngenwal-be-saasrintisinterfaceservice-manager.dll",
+      "--environment=develop"
+    ],
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-saasrintisinterfaceservice-manager",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "front"
+    },
+    "response_template": "template-dotnet-v1"
+  },
+  {
+    "name": "ngenwal-be-saasrintisservice-manager",
+    "images": "loyaltolpi/ngenwal-be-saasrintisservice-manager:9349ca2",
+    "registry": "loyaltolpi/ngenwal-be-saasrintisservice-manager",
+    "version": "9349ca2",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 6055
+      }
+    ],
+    "container_args": [
+      "dotnet",
+      "ngenwal-be-saasrintisservice-manager.dll",
+      "--environment=develop"
+    ],
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-saasrintisservice-manager",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "front"
+    },
+    "response_template": "template-dotnet-v1"
+  },
+  {
+    "name": "ngenwal-be-saasrintisservice-module",
+    "images": "loyaltolpi/ngenwal-be-saasrintisservice-module:4598c65",
+    "registry": "loyaltolpi/ngenwal-be-saasrintisservice-module",
+    "version": "4598c65",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": [
+      "dotnet",
+      "ngenwal-be-saasrintisservice-module.dll",
+      "--environment=develop"
+    ],
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-saasrintisservice-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-dotnet-v1"
+  },
+  {
+    "name": "ngenwal-be-saassettlement-module",
+    "images": "loyaltolpi/ngenwal-be-saassettlement-module:27dc33b",
+    "registry": "loyaltolpi/ngenwal-be-saassettlement-module",
+    "version": "27dc33b",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": null,
+    "container_env": [
+      {
+        "name": "DOTNET_ENVIRONMENT",
+        "value": "develop",
+        "value_from": null
+      }
+    ],
+    "labels": {
+      "app": "ngenwal-be-saassettlement-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-dotnet-v2"
+  },
+  {
+    "name": "ngenwal-be-saasticketing-module",
+    "images": "loyaltolpi/ngenwal-be-saasticketing-module:2115fb8",
+    "registry": "loyaltolpi/ngenwal-be-saasticketing-module",
+    "version": "2115fb8",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 7002
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-saasticketing-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-go-v1"
+  },
+  {
+    "name": "ngenwal-be-saastopupvirtualaccountservice-manager",
+    "images": "loyaltolpi/ngenwal-be-saastopupvirtualaccountservice-manager:86cd513",
+    "registry": "loyaltolpi/ngenwal-be-saastopupvirtualaccountservice-manager",
+    "version": "86cd513",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": [
+      "dotnet",
+      "ngenwal-be-saastopupvirtualaccountservice-manager.dll",
+      "--environment=develop"
+    ],
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-saastopupvirtualaccountservice-manager",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "front"
+    },
+    "response_template": "template-dotnet-v1"
+  },
+  {
+    "name": "ngenwal-be-saastopupvirtualaccountservice-module",
+    "images": "loyaltolpi/ngenwal-be-saastopupvirtualaccountservice-module:52b76ec",
+    "registry": "loyaltolpi/ngenwal-be-saastopupvirtualaccountservice-module",
+    "version": "52b76ec",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": [
+      "dotnet",
+      "ngenwal-be-saastopupvirtualaccountservice-module.dll",
+      "--environment=develop"
+    ],
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-saastopupvirtualaccountservice-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-dotnet-v1"
+  },
+  {
+    "name": "ngenwal-be-saastransaction-module",
+    "images": "loyaltolpi/ngenwal-be-saastransaction-module:0dc7c5c",
+    "registry": "loyaltolpi/ngenwal-be-saastransaction-module",
+    "version": "0dc7c5c",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": null,
+    "container_env": [
+      {
+        "name": "DOTNET_ENVIRONMENT",
+        "value": "develop",
+        "value_from": null
+      }
+    ],
+    "labels": {
+      "app": "ngenwal-be-saastransaction-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-dotnet-v2"
+  },
+  {
+    "name": "ngenwal-be-saastransactionweb-module",
+    "images": "loyaltolpi/ngenwal-be-saastransactionweb-module:53631fb",
+    "registry": "loyaltolpi/ngenwal-be-saastransactionweb-module",
+    "version": "53631fb",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": null,
+    "container_env": [
+      {
+        "name": "DOTNET_ENVIRONMENT",
+        "value": "develop",
+        "value_from": null
+      }
+    ],
+    "labels": {
+      "app": "ngenwal-be-saastransactionweb-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "project_value",
+      "role": "back"
+    },
+    "response_template": "template-dotnet-v2"
+  },
+  {
+    "name": "ngenwal-be-saastransferoutservice-manager",
+    "images": "loyaltolpi/ngenwal-be-saastransferoutservice-manager:8d87a7c",
+    "registry": "loyaltolpi/ngenwal-be-saastransferoutservice-manager",
+    "version": "8d87a7c",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": [
+      "dotnet",
+      "ngenwal-be-saastransferoutservice-manager.dll",
+      "--environment=develop"
+    ],
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-saastransferoutservice-manager",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "front"
+    },
+    "response_template": "template-dotnet-v1"
+  },
+  {
+    "name": "ngenwal-be-saastransferoutservice-module",
+    "images": "loyaltolpi/ngenwal-be-saastransferoutservice-module:9b5aa72",
+    "registry": "loyaltolpi/ngenwal-be-saastransferoutservice-module",
+    "version": "9b5aa72",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": [
+      "dotnet",
+      "ngenwal-be-saastransferoutservice-module.dll",
+      "--environment=develop"
+    ],
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-saastransferoutservice-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-dotnet-v1"
+  },
+  {
+    "name": "ngenwal-be-saasvoucher-module",
+    "images": "loyaltolpi/ngenwal-be-saasvoucher-module:cd26b32",
+    "registry": "loyaltolpi/ngenwal-be-saasvoucher-module",
+    "version": "cd26b32",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": null,
+    "container_env": [
+      {
+        "name": "DOTNET_ENVIRONMENT",
+        "value": "develop",
+        "value_from": null
+      }
+    ],
+    "labels": {
+      "app": "ngenwal-be-saasvoucher-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-dotnet-v2"
+  },
+  {
+    "name": "ngenwal-be-saaswebmasterconfig-module",
+    "images": "loyaltolpi/ngenwal-be-saaswebmasterconfig-module:744887c",
+    "registry": "loyaltolpi/ngenwal-be-saaswebmasterconfig-module",
+    "version": "744887c",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": null,
+    "container_env": [
+      {
+        "name": "DOTNET_ENVIRONMENT",
+        "value": "develop",
+        "value_from": null
+      }
+    ],
+    "labels": {
+      "app": "ngenwal-be-saaswebmasterconfig-module",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-dotnet-v2"
+  },
+  {
+    "name": "ngenwal-be-saaswebtopup-module",
+    "images": "loyaltolpi/ngenwal-be-saaswebtopup-module:f9c0d73",
+    "registry": "loyaltolpi/ngenwal-be-saaswebtopup-module",
+    "version": "f9c0d73",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": null,
+    "container_env": [
+      {
+        "name": "DOTNET_ENVIRONMENT",
+        "value": "develop",
+        "value_from": null
+      }
+    ],
+    "labels": {
+      "app": "ngenwal-be-saaswebtopup-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-dotnet-v2"
+  },
+  {
+    "name": "ngenwal-be-saaswndserviceinterface-manager",
+    "images": "loyaltolpi/ngenwal-be-saaswndserviceinterface-manager:b06b2ab",
+    "registry": "loyaltolpi/ngenwal-be-saaswndserviceinterface-manager",
+    "version": "b06b2ab",
+    "replicas": 0,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 6992
+      }
+    ],
+    "container_args": [
+      "dotnet",
+      "ngenwal-be-saaswndserviceinterface-manager.dll",
+      "--environment=develop"
+    ],
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-saaswndserviceinterface-manager",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "front"
+    },
+    "response_template": "template-dotnet-v1"
+  },
+  {
+    "name": "ngenwal-be-saaswndserviceinterface-module",
+    "images": "loyaltolpi/ngenwal-be-saaswndserviceinterface-module:fae4e35",
+    "registry": "loyaltolpi/ngenwal-be-saaswndserviceinterface-module",
+    "version": "fae4e35",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": [
+      "dotnet",
+      "ngenwal-be-saaswndserviceinterface-module.dll",
+      "--environment=develop"
+    ],
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-saaswndserviceinterface-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-dotnet-v1"
+  },
+  {
+    "name": "ngenwal-be-temporal-workflow",
+    "images": "loyaltolpi/ngenwal-be-temporal-workflow:8ea2050",
+    "registry": "loyaltolpi/ngenwal-be-temporal-workflow",
+    "version": "8ea2050",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 7234
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-temporal-workflow",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-go-v1"
+  },
+  {
+    "name": "ngenwal-be-transactionpayqris-manager",
+    "images": "loyaltolpi/ngenwal-be-transactionpayqris-manager:c652b25",
+    "registry": "loyaltolpi/ngenwal-be-transactionpayqris-manager",
+    "version": "c652b25",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 6690
+      }
+    ],
+    "container_args": [
+      "dotnet",
+      "ngenwal-be-transactionpayqris-manager.dll",
+      "--environment=develop"
+    ],
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-transactionpayqris-manager",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "front"
+    },
+    "response_template": "template-dotnet-v1"
+  },
+  {
+    "name": "ngenwal-be-transactionpg-manager",
+    "images": "loyaltolpi/ngenwal-be-transactionpg-manager:68b8537",
+    "registry": "loyaltolpi/ngenwal-be-transactionpg-manager",
+    "version": "68b8537",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 4010
+      }
+    ],
+    "container_args": [
+      "dotnet",
+      "ngenwal-be-transactionpg-manager.dll",
+      "--environment=develop"
+    ],
+    "container_env": [
+      {
+        "name": "ASPNETCORE_ENVIRONMENT",
+        "value": "develop",
+        "value_from": null
+      }
+    ],
+    "labels": {
+      "app": "ngenwal-be-transactionpg-manager",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "front"
+    },
+    "response_template": "template-unknow"
+  },
+  {
+    "name": "ngenwal-be-transactionpg-module",
+    "images": "loyaltolpi/ngenwal-be-transactionpg-module:7aa0de8",
+    "registry": "loyaltolpi/ngenwal-be-transactionpg-module",
+    "version": "7aa0de8",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": [
+      "dotnet",
+      "ngenwal-be-transactionpg-module.dll",
+      "--environment=develop"
+    ],
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-transactionpg-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-dotnet-v1"
+  },
+  {
+    "name": "ngenwal-be-transactionweb-module",
+    "images": "loyaltolpi/ngenwal-be-transactionweb-module:0374c4d",
+    "registry": "loyaltolpi/ngenwal-be-transactionweb-module",
+    "version": "0374c4d",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": [
+      "dotnet",
+      "ngenwal-be-transactionweb-module.dll",
+      "--environment=develop"
+    ],
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-transactionweb-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-dotnet-v1"
+  },
+  {
+    "name": "ngenwal-be-vaopenpayment-manager",
+    "images": "loyaltolpi/ngenwal-be-vaopenpayment-manager:f678bee",
+    "registry": "loyaltolpi/ngenwal-be-vaopenpayment-manager",
+    "version": "f678bee",
+    "replicas": 0,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 6070
+      }
+    ],
+    "container_args": [
+      "dotnet",
+      "ngenwal-be-vaopenpayment-manager.dll",
+      "--environment=develop"
+    ],
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-vaopenpayment-manager",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "front"
+    },
+    "response_template": "template-dotnet-v1"
+  },
+  {
+    "name": "ngenwal-be-vaopenpayment-module",
+    "images": "loyaltolpi/ngenwal-be-vaopenpayment-module:31cb96f",
+    "registry": "loyaltolpi/ngenwal-be-vaopenpayment-module",
+    "version": "31cb96f",
+    "replicas": 0,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": [
+      "dotnet",
+      "ngenwal-be-vaopenpayment-module.dll",
+      "--environment=develop"
+    ],
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-vaopenpayment-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-dotnet-v1"
+  },
+  {
+    "name": "ngenwal-be-vatransferbag-manager",
+    "images": "loyaltolpi/ngenwal-be-vatransferbag-manager:a6752cb",
+    "registry": "loyaltolpi/ngenwal-be-vatransferbag-manager",
+    "version": "a6752cb",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": [
+      "dotnet",
+      "ngenwal-be-vatransferbag-manager.dll",
+      "--environment=develop"
+    ],
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-vatransferbag-manager",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "front"
+    },
+    "response_template": "template-dotnet-v1"
+  },
+  {
+    "name": "ngenwal-be-webdashboard-manager",
+    "images": "loyaltolpi/ngenwal-be-webdashboard-manager:96e2b47",
+    "registry": "loyaltolpi/ngenwal-be-webdashboard-manager",
+    "version": "96e2b47",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9002
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-webdashboard-manager",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "front"
+    },
+    "response_template": "template-go-v1"
+  },
+  {
+    "name": "ngenwal-be-webdashboard-module",
+    "images": "loyaltolpi/ngenwal-be-webdashboard-module:491ac6b",
+    "registry": "loyaltolpi/ngenwal-be-webdashboard-module",
+    "version": "491ac6b",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-webdashboard-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-go-v1"
+  },
+  {
+    "name": "ngenwal-be-webreport-manager",
+    "images": "loyaltolpi/ngenwal-be-webreport-manager:931b7f1",
+    "registry": "loyaltolpi/ngenwal-be-webreport-manager",
+    "version": "931b7f1",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9004
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-webreport-manager",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "front"
+    },
+    "response_template": "template-go-v1"
+  },
+  {
+    "name": "ngenwal-be-webreport-module",
+    "images": "loyaltolpi/ngenwal-be-webreport-module:bf8e9cb",
+    "registry": "loyaltolpi/ngenwal-be-webreport-module",
+    "version": "bf8e9cb",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-webreport-module",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-go-v1"
+  },
+  {
+    "name": "ngenwal-be-workflow",
+    "images": "loyaltolpi/saas-be-workflow:8c5b2b8",
+    "registry": "loyaltolpi/saas-be-workflow",
+    "version": "8c5b2b8",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 7234
+      },
+      {
+        "name": "grpc",
+        "containerPort": 50051
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "ngenwal-be-workflow",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "front"
+    },
+    "response_template": "template-go-v2"
+  },
+  {
+    "name": "s3-minio",
+    "images": "loyaltolpi/s3-minio:cb70b29",
+    "registry": "loyaltolpi/s3-minio",
+    "version": "cb70b29",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9193
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "s3-minio",
+      "app.kubernetes.io/instance": "develop-ngenwal",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "ngenwal",
+      "role": "back"
+    },
+    "response_template": "template-go-v1"
+  }
+]

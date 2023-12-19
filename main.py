@@ -1,0 +1,530 @@
+import json
+import click
+from kubernetes import client, config
+
+def get_deployments(namespace):
+    try:
+        config.load_kube_config()
+        api_instance = client.AppsV1Api()
+        deployments = api_instance.list_namespaced_deployment(namespace)
+        return deployments.items
+    except Exception as e:
+        raise Exception(f"Error loading Kubernetes config or listing deployments: {e}")
+
+def get_deployment_images(deployment):
+    images = []
+    for container in deployment.spec.template.spec.containers:
+        images.append(container.image)
+    return images
+
+# def get_container_ports(container):
+#     ports = []
+#     for port in container.ports:
+#         ports.append({"name": port.name, "containerPort": port.container_port})
+#     return ports
+
+def get_container_ports(container):
+    ports = []
+    if container.ports:
+        for port in container.ports:
+            ports.append({"name": port.name, "containerPort": port.container_port})
+    return ports
+
+def get_container_args(container):
+    args = container.args if container.args else None
+    return args
+
+def get_container_env(container):
+    env_vars = container.env
+    return [vars_to_dict(var) for var in env_vars] if env_vars else None
+
+def vars_to_dict(env_var):
+    return {
+        "name": env_var.name,
+        "value": env_var.value,
+        "value_from": env_var.value_from.to_dict() if env_var.value_from else None
+    }
+
+def extract_registry_and_version(image):
+    parts = image.split(":")
+    registry_repository = parts[0]
+    version = parts[1] if len(parts) == 2 else None
+    return registry_repository, version
+
+def get_response_template(container_args, container_env, container_ports):
+    if container_ports and 8000 <= container_ports[0]["containerPort"] <= 8020:
+        return "template-krakend-v1"
+    elif container_args is not None and container_env is not None:
+        return "template-unknow"
+    elif container_args is not None:
+        return "template-dotnet-v1"
+    elif container_env is not None:
+        return "template-dotnet-v2"
+    elif container_ports and len(container_ports) == 1:
+        return "template-go-v1"
+    elif container_ports and len(container_ports) > 1:
+        return "template-go-v2"
+    else:
+        return "template-unknown"
+
+
+@click.command()
+@click.argument('namespace')
+def main(namespace):
+    try:
+        deployments = get_deployments(namespace)
+        output_data = []
+
+        if deployments:
+            for deployment in deployments:
+                images = get_deployment_images(deployment)
+                for container in deployment.spec.template.spec.containers:
+                    ports = get_container_ports(container)
+                    args = get_container_args(container)
+                    env_vars = get_container_env(container)
+                    response_template = get_response_template(args, env_vars, ports)
+                    for image in images:
+                        registry, version = extract_registry_and_version(image)
+                        deployment_info = {
+                            "name": deployment.metadata.name,
+                            "images": image,
+                            "registry": registry,
+                            "version": version,
+                            "replicas": deployment.spec.replicas,
+                            "node_selector": deployment.spec.template.spec.node_selector,
+                            "container_ports": ports,
+                            "container_args": args,
+                            "container_env": env_vars,
+                            "labels": deployment.metadata.labels,  # Include labels in the output
+                            "response_template": response_template
+                        }
+                        output_data.append(deployment_info)
+        else:
+            print(f"No deployments found in namespace {namespace}.")
+
+        print(json.dumps(output_data, indent=2, default=str))  # Use default=str for non-serializable objects
+
+    except Exception as e:
+        print(f"Error: {e}")
+
+if __name__ == "__main__":
+    main()
+
+
+
+# import json
+# import click
+# from kubernetes import client, config
+
+# def get_deployments(namespace):
+#     config.load_kube_config()  # Load the Kubernetes config from $HOME/.kube/config
+#     api_instance = client.AppsV1Api()
+
+#     try:
+#         deployments = api_instance.list_namespaced_deployment(namespace)
+#         return deployments.items
+#     except Exception as e:
+#         print(f"Error: {e}")
+#         return []
+
+# def get_deployment_images(deployment):
+#     images = []
+#     for container in deployment.spec.template.spec.containers:
+#         images.append(container.image)
+#     return images
+
+# def get_container_ports(container):
+#     ports = []
+#     for port in container.ports:
+#         ports.append({"name": port.name, "containerPort": port.container_port})
+#     return ports
+
+# def get_container_args(container):
+#     args = container.args if container.args else None
+#     return args
+
+# def get_container_env(container):
+#     env_vars = container.env
+#     return env_vars if env_vars else None
+
+# def extract_registry_and_version(image):
+#     # Assuming the image format is "registry/repository:tag"
+#     parts = image.split(":")
+#     registry_repository = parts[0]
+#     version = parts[1] if len(parts) == 2 else None
+#     return registry_repository, version
+
+# @click.command()
+# @click.argument('namespace')
+# def main(namespace):
+#     deployments = get_deployments(namespace)
+
+#     output_data = []
+
+#     if deployments:
+#         for deployment in deployments:
+#             images = get_deployment_images(deployment)
+#             for container in deployment.spec.template.spec.containers:
+#                 ports = get_container_ports(container)
+#                 args = get_container_args(container)
+#                 env_vars = get_container_env(container)  # Add this line to get container environment variables
+#                 for image in images:
+#                     registry, version = extract_registry_and_version(image)
+#                     deployment_info = {
+#                         "name": deployment.metadata.name,
+#                         "images": image,
+#                         "registry": registry,
+#                         "version": version,
+#                         "replicas": deployment.spec.replicas,
+#                         "node_selector": deployment.spec.template.spec.node_selector,
+#                         "container_ports": ports,
+#                         "container_args": args,
+#                         "container_env": env_vars  # Use the retrieved environment variables
+#                     }
+#                     output_data.append(deployment_info)
+#     else:
+#         print(f"No deployments found in namespace {namespace}.")
+
+#     # Print the output in JSON format
+#     print(json.dumps(output_data, indent=2))
+
+# if __name__ == "__main__":
+#     main()
+
+
+# import json
+# import click
+# from kubernetes import client, config
+
+# def get_deployments(namespace):
+#     config.load_kube_config()  # Load the Kubernetes config from $HOME/.kube/config
+#     api_instance = client.AppsV1Api()
+
+#     try:
+#         deployments = api_instance.list_namespaced_deployment(namespace)
+#         return deployments.items
+#     except Exception as e:
+#         print(f"Error: {e}")
+#         return []
+
+# def get_deployment_images(deployment):
+#     images = []
+#     for container in deployment.spec.template.spec.containers:
+#         images.append(container.image)
+#     return images
+
+# def get_container_ports(container):
+#     ports = []
+#     for port in container.ports:
+#         ports.append({"name": port.name, "containerPort": port.container_port})
+#     return ports
+
+# def extract_registry_and_version(image):
+#     # Assuming the image format is "registry/repository:tag"
+#     parts = image.split(":")
+#     registry_repository = parts[0]
+#     version = parts[1] if len(parts) == 2 else None
+#     return registry_repository, version
+
+# @click.command()
+# @click.argument('namespace')
+# def main(namespace):
+#     deployments = get_deployments(namespace)
+
+#     output_data = []
+
+#     if deployments:
+#         for deployment in deployments:
+#             images = get_deployment_images(deployment)
+#             for container in deployment.spec.template.spec.containers:
+#                 ports = get_container_ports(container)
+#                 for image in images:
+#                     registry, version = extract_registry_and_version(image)
+#                     deployment_info = {
+#                         "name": deployment.metadata.name,
+#                         "images": image,
+#                         "registry": registry,
+#                         "version": version,
+#                         "replicas": deployment.spec.replicas,
+#                         "node_selector": deployment.spec.template.spec.node_selector,
+#                         "container_ports": ports
+#                     }
+#                     output_data.append(deployment_info)
+#     else:
+#         print(f"No deployments found in namespace {namespace}.")
+
+#     # Print the output in JSON format
+#     print(json.dumps(output_data, indent=2))
+
+# if __name__ == "__main__":
+#     main()
+
+
+# import json
+# import click
+# from kubernetes import client, config
+
+# def get_deployments(namespace):
+#     config.load_kube_config()  # Load the Kubernetes config from $HOME/.kube/config
+#     api_instance = client.AppsV1Api()
+
+#     try:
+#         deployments = api_instance.list_namespaced_deployment(namespace)
+#         return deployments.items
+#     except Exception as e:
+#         print(f"Error: {e}")
+#         return []
+
+# def get_deployment_images(deployment):
+#     images = []
+#     for container in deployment.spec.template.spec.containers:
+#         images.append(container.image)
+#     return images
+
+# def extract_registry_and_version(image):
+#     # Assuming the image format is "registry/repository:tag"
+#     parts = image.split(":")
+#     registry_repository = parts[0]
+#     version = parts[1] if len(parts) == 2 else None
+#     return registry_repository, version
+
+# @click.command()
+# @click.argument('namespace')
+# def main(namespace):
+#     deployments = get_deployments(namespace)
+
+#     output_data = []
+
+#     if deployments:
+#         for deployment in deployments:
+#             images = get_deployment_images(deployment)
+#             for image in images:
+#                 registry, version = extract_registry_and_version(image)
+#                 deployment_info = {
+#                     "name": deployment.metadata.name,
+#                     "images": image,
+#                     "registry": registry,
+#                     "version": version,
+#                     "replicas": deployment.spec.replicas,
+#                     "node_selector": deployment.spec.template.spec.node_selector
+#                 }
+#                 output_data.append(deployment_info)
+#     else:
+#         print(f"No deployments found in namespace {namespace}.")
+
+#     # Print the output in JSON format
+#     print(json.dumps(output_data, indent=2))
+
+# if __name__ == "__main__":
+#     main()
+
+
+# import json
+# import click
+# from kubernetes import client, config
+
+# def get_deployments(namespace):
+#     config.load_kube_config()  # Load the Kubernetes config from $HOME/.kube/config
+#     api_instance = client.AppsV1Api()
+
+#     try:
+#         deployments = api_instance.list_namespaced_deployment(namespace)
+#         return deployments.items
+#     except Exception as e:
+#         print(f"Error: {e}")
+#         return []
+
+# def get_deployment_images(deployment):
+#     images = []
+#     for container in deployment.spec.template.spec.containers:
+#         images.append(container.image)
+#     return images
+
+# def extract_registry_and_version(image):
+#     # Assuming the image format is "registry/repository:tag"
+#     parts = image.split(":")
+#     registry_repository = parts[0]
+#     version = parts[1] if len(parts) == 2 else None
+#     return registry_repository, version
+
+# @click.command()
+# @click.argument('namespace')
+# def main(namespace):
+#     deployments = get_deployments(namespace)
+
+#     output_data = []
+
+#     if deployments:
+#         for deployment in deployments:
+#             images = get_deployment_images(deployment)
+#             for image in images:
+#                 registry, version = extract_registry_and_version(image)
+#                 deployment_info = {
+#                     "name": deployment.metadata.name,
+#                     "images": image,
+#                     "registry": registry,
+#                     "version": version
+#                 }
+#                 output_data.append(deployment_info)
+#     else:
+#         print(f"No deployments found in namespace {namespace}.")
+
+#     # Print the output in JSON format
+#     print(json.dumps(output_data, indent=2))
+
+# if __name__ == "__main__":
+#     main()
+
+
+# import json
+# import click
+# from kubernetes import client, config
+
+# def get_deployments(namespace):
+#     config.load_kube_config()  # Load the Kubernetes config from $HOME/.kube/config
+#     api_instance = client.AppsV1Api()
+
+#     try:
+#         deployments = api_instance.list_namespaced_deployment(namespace)
+#         return deployments.items
+#     except Exception as e:
+#         print(f"Error: {e}")
+#         return []
+
+# def get_deployment_images(deployment):
+#     images = []
+#     for container in deployment.spec.template.spec.containers:
+#         images.append(container.image)
+#     return images
+
+# @click.command()
+# @click.argument('namespace')
+# def main(namespace):
+#     deployments = get_deployments(namespace)
+
+#     output_data = []
+
+#     if deployments:
+#         for deployment in deployments:
+#             images = get_deployment_images(deployment)
+#             deployment_info = {
+#                 "name": deployment.metadata.name,
+#                 "images": images[0]
+#             }
+#             output_data.append(deployment_info)
+#     else:
+#         print(f"No deployments found in namespace {namespace}.")
+
+#     # Print the output in JSON format
+#     print(json.dumps(output_data, indent=2))
+
+# if __name__ == "__main__":
+#     main()
+
+
+# from kubernetes import client, config
+# import json
+
+# def get_deployments(namespace):
+#     config.load_kube_config(config_file=".kube/config.yaml")
+#     api_instance = client.AppsV1Api()
+
+#     try:
+#         deployments = api_instance.list_namespaced_deployment(namespace)
+#         return deployments.items
+#     except Exception as e:
+#         print(f"Error: {e}")
+#         return []
+
+# def get_deployment_images(deployment):
+#     images = []
+#     for container in deployment.spec.template.spec.containers:
+#         images.append(container.image)
+#     return images
+
+# def main():
+#     namespace = "develop-qoin"
+#     deployments = get_deployments(namespace)
+
+#     output_data = []
+
+#     if deployments:
+#         for deployment in deployments:
+#             images = get_deployment_images(deployment)
+#             deployment_info = {
+#                 "name": deployment.metadata.name,
+#                 "images": images[0]
+#             }
+#             output_data.append(deployment_info)
+#     else:
+#         print(f"No deployments found in namespace {namespace}.")
+
+#     # Print the output in JSON format
+#     print(json.dumps(output_data, indent=2))
+
+# if __name__ == "__main__":
+#     main()
+
+
+# from kubernetes import client, config
+
+# def get_deployments(namespace):
+#     config.load_kube_config(config_file=".kube/config.yaml")
+#     api_instance = client.AppsV1Api()
+
+#     try:
+#         deployments = api_instance.list_namespaced_deployment(namespace)
+#         return deployments.items
+#     except Exception as e:
+#         print(f"Error: {e}")
+#         return []
+
+# def get_deployment_images(deployment):
+#     images = []
+#     for container in deployment.spec.template.spec.containers:
+#         images.append(container.image)
+#     return images
+
+# def main():
+#     namespace = "develop-qoin"
+#     deployments = get_deployments(namespace)
+
+#     if deployments:
+#         print(f"Deployments in namespace {namespace}:")
+#         for deployment in deployments:
+#             images = get_deployment_images(deployment)
+#             print(f"- {deployment.metadata.name}: {', '.join(images)}")
+#     else:
+#         print(f"No deployments found in namespace {namespace}.")
+
+# if __name__ == "__main__":
+#     main()
+
+
+# from kubernetes import client, config
+# import yaml
+
+# def get_deployments(namespace):
+#     config.load_kube_config(config_file=".kube/config.yaml")  # Menggunakan konfigurasi dari config.yaml
+#     api_instance = client.AppsV1Api()
+
+#     try:
+#         deployments = api_instance.list_namespaced_deployment(namespace)
+#         return deployments.items
+#     except Exception as e:
+#         print(f"Error: {e}")
+#         return []
+
+# def main():
+#     namespace = "develop-qoin"
+#     deployments = get_deployments(namespace)
+
+#     if deployments:
+#         print(f"Deployments in namespace {namespace}:")
+#         for deployment in deployments:
+#             print(f"- {deployment.metadata.name}")
+#     else:
+#         print(f"No deployments found in namespace {namespace}.")
+
+# if __name__ == "__main__":
+#     main()
