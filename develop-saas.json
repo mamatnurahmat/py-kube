@@ -1,0 +1,1240 @@
+[
+  {
+    "name": "s3-minio",
+    "images": "loyaltolpi/s3-minio:v1.0.1",
+    "registry": "loyaltolpi/s3-minio",
+    "version": "v1.0.1",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9193
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "s3-minio",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "production",
+      "objectset.rio.cattle.io/hash": "ef368b3fc244096967ce72e0feaaf0cc95e8827a",
+      "project": "payout",
+      "role": "back"
+    },
+    "response_template": "template-go-v1"
+  },
+  {
+    "name": "saas-apigateway",
+    "images": "loyaltolpi/saas-apigateway:a95a9e2",
+    "registry": "loyaltolpi/saas-apigateway",
+    "version": "a95a9e2",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 8005
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-apigateway",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "saas",
+      "role": "front"
+    },
+    "response_template": "template-krakend-v1"
+  },
+  {
+    "name": "saas-be-access-manager",
+    "images": "loyaltolpi/saas-be-access-manager:dd8eb7c",
+    "registry": "loyaltolpi/saas-be-access-manager",
+    "version": "dd8eb7c",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9140
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-be-access-manager",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "argocd.argoproj.io/instance": "develop-saas",
+      "env": "develop",
+      "project": "saas",
+      "role": "front",
+      "roleX": "frontX"
+    },
+    "response_template": "template-go-v1"
+  },
+  {
+    "name": "saas-be-access-module",
+    "images": "loyaltolpi/saas-be-access-module:9cc95e0",
+    "registry": "loyaltolpi/saas-be-access-module",
+    "version": "9cc95e0",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-be-access-module",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "argocd.argoproj.io/instance": "develop-saas",
+      "env": "develop",
+      "project": "saas",
+      "role": "back"
+    },
+    "response_template": "template-go-v1"
+  },
+  {
+    "name": "saas-be-admin-manager",
+    "images": "loyaltolpi/saas-be-admin-manager:44d26b0",
+    "registry": "loyaltolpi/saas-be-admin-manager",
+    "version": "44d26b0",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9510
+      },
+      {
+        "name": "grpc",
+        "containerPort": 9521
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-be-admin-manager",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "argocd.argoproj.io/instance": "develop-saas",
+      "env": "develop",
+      "project": "saas",
+      "role": "front"
+    },
+    "response_template": "template-go-v2"
+  },
+  {
+    "name": "saas-be-admin-module",
+    "images": "loyaltolpi/saas-be-admin-module:6a0be36",
+    "registry": "loyaltolpi/saas-be-admin-module",
+    "version": "6a0be36",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9521
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-be-admin-module",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "argocd.argoproj.io/instance": "develop-saas",
+      "env": "develop",
+      "project": "saas",
+      "role": "back"
+    },
+    "response_template": "template-go-v1"
+  },
+  {
+    "name": "saas-be-announcement-manager",
+    "images": "loyaltolpi/saas-be-announcement-manager:d015a2b",
+    "registry": "loyaltolpi/saas-be-announcement-manager",
+    "version": "d015a2b",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9701
+      },
+      {
+        "name": "grpc",
+        "containerPort": 9702
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-be-announcement-manager",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "argocd.argoproj.io/instance": "develop-saas",
+      "env": "develop",
+      "project": "saas",
+      "role": "front"
+    },
+    "response_template": "template-go-v2"
+  },
+  {
+    "name": "saas-be-announcement-module",
+    "images": "loyaltolpi/saas-be-announcement-module:54f370a",
+    "registry": "loyaltolpi/saas-be-announcement-module",
+    "version": "54f370a",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9702
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-be-announcement-module",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "argocd.argoproj.io/instance": "develop-saas",
+      "env": "develop",
+      "project": "saas",
+      "role": "back"
+    },
+    "response_template": "template-go-v1"
+  },
+  {
+    "name": "saas-be-audittrail-manager",
+    "images": "loyaltolpi/saas-be-audittrail-manager:1a35fba",
+    "registry": "loyaltolpi/saas-be-audittrail-manager",
+    "version": "1a35fba",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9601
+      },
+      {
+        "name": "grpc",
+        "containerPort": 9603
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-be-audittrail-manager",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "argocd.argoproj.io/instance": "develop-saas",
+      "env": "develop",
+      "project": "saas",
+      "role": "front"
+    },
+    "response_template": "template-go-v2"
+  },
+  {
+    "name": "saas-be-audittrail-module",
+    "images": "loyaltolpi/saas-be-audittrail-module:5350d66",
+    "registry": "loyaltolpi/saas-be-audittrail-module",
+    "version": "5350d66",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9603
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-be-audittrail-module",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "argocd.argoproj.io/instance": "develop-saas",
+      "env": "develop",
+      "project": "saas",
+      "role": "back"
+    },
+    "response_template": "template-go-v1"
+  },
+  {
+    "name": "saas-be-clientapi-manager",
+    "images": "loyaltolpi/saas-be-clientapi-manager:6efdc91",
+    "registry": "loyaltolpi/saas-be-clientapi-manager",
+    "version": "6efdc91",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9303
+      },
+      {
+        "name": "grpc",
+        "containerPort": 9401
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-be-clientapi-manager",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "argocd.argoproj.io/instance": "develop-saas",
+      "env": "develop",
+      "project": "saas",
+      "role": "front"
+    },
+    "response_template": "template-go-v2"
+  },
+  {
+    "name": "saas-be-clientapi-module",
+    "images": "loyaltolpi/saas-be-clientapi-module:0124724",
+    "registry": "loyaltolpi/saas-be-clientapi-module",
+    "version": "0124724",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9401
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-be-clientapi-module",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "argocd.argoproj.io/instance": "develop-saas",
+      "env": "develop",
+      "project": "saas",
+      "role": "back"
+    },
+    "response_template": "template-go-v1"
+  },
+  {
+    "name": "saas-be-config-manager",
+    "images": "loyaltolpi/saas-be-config-manager:b839c15",
+    "registry": "loyaltolpi/saas-be-config-manager",
+    "version": "b839c15",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9301
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-be-config-manager",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "saas",
+      "role": "front"
+    },
+    "response_template": "template-go-v1"
+  },
+  {
+    "name": "saas-be-config-module",
+    "images": "loyaltolpi/saas-be-config-module:da06d14",
+    "registry": "loyaltolpi/saas-be-config-module",
+    "version": "da06d14",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      },
+      {
+        "name": "grpc",
+        "containerPort": 9402
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-be-config-module",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "argocd.argoproj.io/instance": "develop-saas",
+      "env": "develop",
+      "project": "saas",
+      "role": "back"
+    },
+    "response_template": "template-go-v2"
+  },
+  {
+    "name": "saas-be-docs-manager",
+    "images": "loyaltolpi/saas-be-docs-manager:0ed79b1",
+    "registry": "loyaltolpi/saas-be-docs-manager",
+    "version": "0ed79b1",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9710
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-be-docs-manager",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "argocd.argoproj.io/instance": "develop-saas",
+      "env": "develop",
+      "project": "saas",
+      "role": "front"
+    },
+    "response_template": "template-go-v1"
+  },
+  {
+    "name": "saas-be-docs-module",
+    "images": "loyaltolpi/saas-be-docs-module:7f05959",
+    "registry": "loyaltolpi/saas-be-docs-module",
+    "version": "7f05959",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9711
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-be-docs-module",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "argocd.argoproj.io/instance": "develop-saas",
+      "env": "develop",
+      "project": "saas",
+      "role": "back"
+    },
+    "response_template": "template-go-v1"
+  },
+  {
+    "name": "saas-be-loyalty-manager",
+    "images": "loyaltolpi/saas-be-loyalty-manager:5475b6f",
+    "registry": "loyaltolpi/saas-be-loyalty-manager",
+    "version": "5475b6f",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9540
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-be-loyalty-manager",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "saas",
+      "role": "front"
+    },
+    "response_template": "template-go-v1"
+  },
+  {
+    "name": "saas-be-loyalty-module",
+    "images": "loyaltolpi/saas-be-loyalty-module:94ba8e3",
+    "registry": "loyaltolpi/saas-be-loyalty-module",
+    "version": "94ba8e3",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9542
+      },
+      {
+        "name": "grpc",
+        "containerPort": 9541
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-be-loyalty-module",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "saas",
+      "role": "back"
+    },
+    "response_template": "template-go-v2"
+  },
+  {
+    "name": "saas-be-messaging-manager",
+    "images": "loyaltolpi/saas-be-messaging-manager:ab25828",
+    "registry": "loyaltolpi/saas-be-messaging-manager",
+    "version": "ab25828",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9820
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-be-messaging-manager",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "argocd.argoproj.io/instance": "develop-saas",
+      "env": "develop",
+      "project": "saas",
+      "role": "front"
+    },
+    "response_template": "template-go-v1"
+  },
+  {
+    "name": "saas-be-messaging-module",
+    "images": "loyaltolpi/saas-be-messaging-module:0462055",
+    "registry": "loyaltolpi/saas-be-messaging-module",
+    "version": "0462055",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9910
+      },
+      {
+        "name": "grpc",
+        "containerPort": 9830
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-be-messaging-module",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "saas",
+      "role": "back"
+    },
+    "response_template": "template-go-v2"
+  },
+  {
+    "name": "saas-be-middleware-manager",
+    "images": "loyaltolpi/saas-be-middleware-manager:015eed1",
+    "registry": "loyaltolpi/saas-be-middleware-manager",
+    "version": "015eed1",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9201
+      },
+      {
+        "name": "grpc",
+        "containerPort": 9202
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-be-middleware-manager",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "argocd.argoproj.io/instance": "develop-saas",
+      "env": "develop",
+      "project": "saas",
+      "role": "front"
+    },
+    "response_template": "template-go-v2"
+  },
+  {
+    "name": "saas-be-permission-manager",
+    "images": "loyaltolpi/saas-be-permission-manager:71a0a8f",
+    "registry": "loyaltolpi/saas-be-permission-manager",
+    "version": "71a0a8f",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9502
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-be-permission-manager",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "argocd.argoproj.io/instance": "develop-saas",
+      "env": "develop",
+      "project": "saas",
+      "role": "front"
+    },
+    "response_template": "template-go-v1"
+  },
+  {
+    "name": "saas-be-permission-module",
+    "images": "loyaltolpi/saas-be-permission-module:027a002",
+    "registry": "loyaltolpi/saas-be-permission-module",
+    "version": "027a002",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9020
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-be-permission-module",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "argocd.argoproj.io/instance": "develop-saas",
+      "env": "develop",
+      "project": "saas",
+      "role": "back"
+    },
+    "response_template": "template-go-v1"
+  },
+  {
+    "name": "saas-be-profile-manager",
+    "images": "loyaltolpi/saas-be-profile-manager:35b9a51",
+    "registry": "loyaltolpi/saas-be-profile-manager",
+    "version": "35b9a51",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9501
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-be-profile-manager",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "saas",
+      "role": "front"
+    },
+    "response_template": "template-go-v1"
+  },
+  {
+    "name": "saas-be-profile-module",
+    "images": "loyaltolpi/saas-be-profile-module:676f598",
+    "registry": "loyaltolpi/saas-be-profile-module",
+    "version": "676f598",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9503
+      },
+      {
+        "name": "grpc",
+        "containerPort": 9010
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-be-profile-module",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "saas",
+      "role": "back"
+    },
+    "response_template": "template-go-v2"
+  },
+  {
+    "name": "saas-be-providerapi-manager",
+    "images": "loyaltolpi/saas-be-providerapi-manager:fa5a003",
+    "registry": "loyaltolpi/saas-be-providerapi-manager",
+    "version": "fa5a003",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9530
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-be-providerapi-manager",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "saas",
+      "role": "front"
+    },
+    "response_template": "template-go-v1"
+  },
+  {
+    "name": "saas-be-providerapi-module",
+    "images": "loyaltolpi/saas-be-providerapi-module:ee7391f",
+    "registry": "loyaltolpi/saas-be-providerapi-module",
+    "version": "ee7391f",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9532
+      },
+      {
+        "name": "grpc",
+        "containerPort": 9531
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-be-providerapi-module",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "saas",
+      "role": "back"
+    },
+    "response_template": "template-go-v2"
+  },
+  {
+    "name": "saas-be-providerprofile-manager",
+    "images": "loyaltolpi/saas-be-providerprofile-manager:9c19e34",
+    "registry": "loyaltolpi/saas-be-providerprofile-manager",
+    "version": "9c19e34",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9520
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-be-providerprofile-manager",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "saas",
+      "role": "front"
+    },
+    "response_template": "template-go-v1"
+  },
+  {
+    "name": "saas-be-providerprofile-module",
+    "images": "loyaltolpi/saas-be-providerprofile-module:2015c72",
+    "registry": "loyaltolpi/saas-be-providerprofile-module",
+    "version": "2015c72",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9521
+      },
+      {
+        "name": "grpc",
+        "containerPort": 9100
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-be-providerprofile-module",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "saas",
+      "role": "back"
+    },
+    "response_template": "template-go-v2"
+  },
+  {
+    "name": "saas-be-proxy-manager",
+    "images": "loyaltolpi/saas-be-proxy-manager:2e6ceed",
+    "registry": "loyaltolpi/saas-be-proxy-manager",
+    "version": "2e6ceed",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9545
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-be-proxy-manager",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "saas",
+      "role": "front"
+    },
+    "response_template": "template-go-v1"
+  },
+  {
+    "name": "saas-be-subscription-manager",
+    "images": "loyaltolpi/saas-be-subscription-manager:07f697e",
+    "registry": "loyaltolpi/saas-be-subscription-manager",
+    "version": "07f697e",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9501
+      },
+      {
+        "name": "grpc",
+        "containerPort": 9502
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-be-subscription-manager",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "argocd.argoproj.io/instance": "develop-saas",
+      "env": "develop",
+      "project": "saas",
+      "role": "front"
+    },
+    "response_template": "template-go-v2"
+  },
+  {
+    "name": "saas-be-subscription-module",
+    "images": "loyaltolpi/saas-be-subscription-module:9965e45",
+    "registry": "loyaltolpi/saas-be-subscription-module",
+    "version": "9965e45",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9502
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-be-subscription-module",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "argocd.argoproj.io/instance": "develop-saas",
+      "env": "develop",
+      "project": "saas",
+      "role": "back"
+    },
+    "response_template": "template-go-v1"
+  },
+  {
+    "name": "saas-be-testing-manager",
+    "images": "nginx:latest",
+    "registry": "nginx",
+    "version": "latest",
+    "replicas": 3,
+    "node_selector": null,
+    "container_ports": [],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-be-testing-manager",
+      "app.kubernetes.io/instance": "develop-saas"
+    },
+    "response_template": "template-unknown"
+  },
+  {
+    "name": "saas-be-transactions-manager",
+    "images": "loyaltolpi/saas-be-transactions-manager:23fafc3",
+    "registry": "loyaltolpi/saas-be-transactions-manager",
+    "version": "23fafc3",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9540
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-be-transactions-manager",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "argocd.argoproj.io/instance": "develop-saas",
+      "env": "develop",
+      "project": "saas",
+      "role": "front"
+    },
+    "response_template": "template-go-v1"
+  },
+  {
+    "name": "saas-be-transactions-module",
+    "images": "loyaltolpi/saas-be-transactions-module:b558abf",
+    "registry": "loyaltolpi/saas-be-transactions-module",
+    "version": "b558abf",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9542
+      },
+      {
+        "name": "grpc",
+        "containerPort": 9543
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-be-transactions-module",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "argocd.argoproj.io/instance": "develop-saas",
+      "env": "develop",
+      "project": "saas",
+      "role": "back"
+    },
+    "response_template": "template-go-v2"
+  },
+  {
+    "name": "saas-be-webhook-manager",
+    "images": "loyaltolpi/saas-be-webhook-manager:5c543df",
+    "registry": "loyaltolpi/saas-be-webhook-manager",
+    "version": "5c543df",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9544
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-be-webhook-manager",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "saas",
+      "role": "front"
+    },
+    "response_template": "template-go-v1"
+  },
+  {
+    "name": "saas-be-workflow",
+    "images": "loyaltolpi/saas-be-workflow:ea94fd7",
+    "registry": "loyaltolpi/saas-be-workflow",
+    "version": "ea94fd7",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 7234
+      },
+      {
+        "name": "grpc",
+        "containerPort": 50051
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-be-workflow",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "saas",
+      "role": "front"
+    },
+    "response_template": "template-go-v2"
+  },
+  {
+    "name": "saas-be-workflow-consumers",
+    "images": "loyaltolpi/saas-be-workflow-consumers:59bf63d",
+    "registry": "loyaltolpi/saas-be-workflow-consumers",
+    "version": "59bf63d",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-be-workflow-consumers",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "argocd.argoproj.io/instance": "develop-saas",
+      "env": "develop",
+      "project": "saas",
+      "role": "back"
+    },
+    "response_template": "template-go-v1"
+  },
+  {
+    "name": "saas-be-workflow-subscribers",
+    "images": "loyaltolpi/saas-be-workflow-subscribers:d235119",
+    "registry": "loyaltolpi/saas-be-workflow-subscribers",
+    "version": "d235119",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 80
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-be-workflow-subscribers",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "argocd.argoproj.io/instance": "develop-saas",
+      "env": "develop",
+      "project": "saas",
+      "role": "back"
+    },
+    "response_template": "template-go-v1"
+  },
+  {
+    "name": "saas-be-workspace-manager",
+    "images": "loyaltolpi/saas-be-workspace-manager:77f5f4f",
+    "registry": "loyaltolpi/saas-be-workspace-manager",
+    "version": "77f5f4f",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9801
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-be-workspace-manager",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "env": "develop",
+      "project": "saas",
+      "role": "front"
+    },
+    "response_template": "template-go-v1"
+  },
+  {
+    "name": "saas-be-workspaceadmin-manager",
+    "images": "loyaltolpi/saas-be-workspaceadmin-manager:66daa58",
+    "registry": "loyaltolpi/saas-be-workspaceadmin-manager",
+    "version": "66daa58",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9821
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-be-workspaceadmin-manager",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "argocd.argoproj.io/instance": "develop-saas",
+      "env": "develop",
+      "project": "saas",
+      "role": "front"
+    },
+    "response_template": "template-go-v1"
+  },
+  {
+    "name": "saas-be-workspaceclient-manager",
+    "images": "loyaltolpi/saas-be-workspaceclient-manager:59799e9",
+    "registry": "loyaltolpi/saas-be-workspaceclient-manager",
+    "version": "59799e9",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "front"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9812
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-be-workspaceclient-manager",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "argocd.argoproj.io/instance": "develop-saas",
+      "env": "develop",
+      "project": "saas",
+      "role": "front"
+    },
+    "response_template": "template-go-v1"
+  },
+  {
+    "name": "saas-be-workspaceclient-module",
+    "images": "loyaltolpi/saas-be-workspaceclient-module:c1858da",
+    "registry": "loyaltolpi/saas-be-workspaceclient-module",
+    "version": "c1858da",
+    "replicas": 1,
+    "node_selector": {
+      "nodetype": "back"
+    },
+    "container_ports": [
+      {
+        "name": "http",
+        "containerPort": 9811
+      },
+      {
+        "name": "grpc",
+        "containerPort": 9810
+      }
+    ],
+    "container_args": null,
+    "container_env": null,
+    "labels": {
+      "app": "saas-be-workspaceclient-module",
+      "app.kubernetes.io/instance": "develop-saas",
+      "app.kubernetes.io/managed-by": "Helm",
+      "argocd.argoproj.io/instance": "develop-saas",
+      "env": "develop",
+      "project": "saas",
+      "role": "back"
+    },
+    "response_template": "template-go-v2"
+  }
+]
