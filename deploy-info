@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-
+#!python3
 import json
 import click
 from kubernetes import client, config
